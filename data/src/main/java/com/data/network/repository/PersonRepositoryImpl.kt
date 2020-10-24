@@ -32,7 +32,7 @@ class PersonRepositoryImpl(
     }
 
     suspend fun getPersonDetail(
-        userId: String
+        userId: Int
     ): ResultData<PersonDetailNetworkEntity> {
         try {
             val response = personService.getUserDetail(userId)

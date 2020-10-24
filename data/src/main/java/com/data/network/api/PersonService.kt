@@ -13,7 +13,7 @@ interface PersonService {
 
     @GET("user/:{id}")
     suspend fun getUserDetail(
-        @Path("id") userId: String
+        @Path("id") userId: Int
     ): Response<PersonDetailNetworkEntity>
 
 }

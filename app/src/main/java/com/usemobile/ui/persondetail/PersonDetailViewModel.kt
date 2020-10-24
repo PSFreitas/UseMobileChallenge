@@ -16,7 +16,7 @@ class PersonDetailViewModel(
     val personDetail = MutableLiveData<Resource<PersonDetailNetworkEntity>>()
 
     fun getPersonDetails(
-        userId: String
+        userId: Int
     ) {
         personDetail.value = Resource.loading()
         viewModelScope.launch {

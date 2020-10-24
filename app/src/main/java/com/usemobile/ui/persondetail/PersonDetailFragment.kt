@@ -65,7 +65,7 @@ class PersonDetailFragment : Fragment() {
 
     private fun fetchUserDetails() {
         viewModel.getPersonDetails(
-            arguments?.getInt("personId").toString()
+            arguments?.getInt("personId") ?: 0
         )
     }
 
