@@ -6,12 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.data.network.api.PersonClient
+import com.data.network.repository.PersonRepositoryImpl
 import com.usemobile.R
 import com.usemobile.databinding.FragmentPersonDetailBinding
 import kotlinx.android.synthetic.main.fragment_person_detail.*
 
 class PersonDetailFragment : Fragment() {
+
+    private val viewModel by lazy {
+        val repositoryImpl = PersonRepositoryImpl(PersonClient.personService)
+        PersonDetailViewModelFactory(
+            repositoryImpl
+        ).create(
+            PersonDetailViewModel::class.java
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
