@@ -26,7 +26,7 @@
             android:theme="@style/AppTheme.Toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Lista de Pessoas" />
+            app:title="@string/title_persons_list" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView_person_list"
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_person_list"
-            app:queryHint="Pesquisar" />
+            app:queryHint="@string/search_hint" />
 
         <ProgressBar
             android:id="@+id/progressBar_person_list"

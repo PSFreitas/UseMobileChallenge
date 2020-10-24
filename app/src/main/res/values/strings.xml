@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UseMobileChallenge</string>
+    <string name="title_persons_list">Lista de Pessoas</string>
+    <string name="search_hint">Pesquisar</string>
 </resources>
