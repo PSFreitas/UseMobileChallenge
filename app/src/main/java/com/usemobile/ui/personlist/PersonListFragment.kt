@@ -121,6 +121,12 @@ class PersonListFragment : Fragment() {
                 if (it.status == Status.SUCCESS) {
                     if (it.data != null)
                         adapter.addElements(it.data.personList)
+                }else if(it.status == Status.ERROR){
+                    Snackbar.make(
+                        requireView(),
+                        R.string.api_fetch_fail,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             }
         )
