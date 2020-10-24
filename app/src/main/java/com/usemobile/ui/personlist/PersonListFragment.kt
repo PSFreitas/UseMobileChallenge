@@ -86,7 +86,7 @@ class PersonListFragment : Fragment() {
 
     private fun setupObservables() {
         viewModel.personList.observe(
-            this, Observer {
+            viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
                     adapter.persons.addAll(it.data?.personList!!)
                     adapter.notifyDataSetChanged()
