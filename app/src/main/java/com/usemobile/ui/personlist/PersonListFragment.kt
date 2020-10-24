@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -55,6 +56,22 @@ class PersonListFragment : Fragment() {
         setupObservables()
         fetchPersonsFromApi()
         setupRecyclerView()
+        setupSearchView()
+    }
+
+    private fun setupSearchView() {
+        searchView_person_list.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                adapter.getFilter().filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                adapter.getFilter().filter(query)
+                return false
+            }
+
+        })
     }
 
     private fun setupRecyclerView() {
@@ -88,8 +105,8 @@ class PersonListFragment : Fragment() {
         viewModel.personList.observe(
             viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
-                    adapter.persons.addAll(it.data?.personList!!)
-                    adapter.notifyDataSetChanged()
+                    if (it.data != null)
+                        adapter.addElements(it.data.personList)
                 }
             }
         )
