@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.data.network.api.PersonClient
 import com.data.network.repository.PersonRepositoryImpl
+import com.google.android.material.snackbar.Snackbar
 import com.usemobile.R
 import com.usemobile.databinding.FragmentPersonListBinding
 import com.usemobile.valuableobject.Status
@@ -55,8 +56,21 @@ class PersonListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObservables()
         fetchPersonsFromApi()
+        setupAdapter()
         setupRecyclerView()
         setupSearchView()
+    }
+
+    private fun setupAdapter() {
+        adapter.onPersonClickListener = object : OnPersonClickListener {
+            override fun onPersonClick(personId: Int) {
+                Snackbar.make(
+                    requireView(),
+                    "Item clicked $personId",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     private fun setupSearchView() {

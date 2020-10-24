@@ -14,6 +14,7 @@ class PersonAdapter(
 ) : RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
 
     private val cleanListState = mutableListOf<PersonItemListNetworkEntity>()
+    lateinit var onPersonClickListener: OnPersonClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         return PersonViewHolder(
@@ -31,7 +32,7 @@ class PersonAdapter(
     override fun getItemCount(): Int = persons.size
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) =
-        holder.bind(person = persons[position])
+        holder.bind(person = persons[position], personClickListener = onPersonClickListener)
 
 
     fun addElements(elementsToBeAdded: List<PersonItemListNetworkEntity>) {
@@ -69,8 +70,14 @@ class PersonAdapter(
     class PersonViewHolder(val binding: ItemPersonBindingImpl) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(person: PersonItemListNetworkEntity) {
+        fun bind(
+            person: PersonItemListNetworkEntity,
+            personClickListener: OnPersonClickListener
+        ) {
             binding.person = person
+            binding.root.setOnClickListener {
+                personClickListener.onPersonClick(personId = person.id)
+            }
         }
     }
 
