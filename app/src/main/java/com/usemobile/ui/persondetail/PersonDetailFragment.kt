@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.data.network.api.PersonClient
 import com.data.network.repository.PersonRepositoryImpl
+import com.google.android.material.snackbar.Snackbar
 import com.usemobile.R
 import com.usemobile.databinding.FragmentPersonDetailBinding
+import com.usemobile.valuableobject.Status
 import kotlinx.android.synthetic.main.fragment_person_detail.*
 
 class PersonDetailFragment : Fragment() {
@@ -41,7 +44,31 @@ class PersonDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
+        fetchUserDetails()
+        setupObservables()
+    }
 
+    private fun setupObservables() {
+        viewModel.personDetail.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it.status == Status.SUCCESS) {
+
+                } else if (it.status == Status.ERROR) {
+                    Snackbar.make(
+                        requireView(),
+                        it.exception?.message ?: "",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        )
+    }
+
+    private fun fetchUserDetails() {
+        viewModel.getPersonDetails(
+            arguments?.getInt("personId").toString()
+        )
     }
 
     private fun setupToolbar() {
