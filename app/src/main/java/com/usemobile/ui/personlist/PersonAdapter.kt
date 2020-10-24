@@ -76,7 +76,7 @@ class PersonAdapter(
         ) {
             binding.person = person
             binding.root.setOnClickListener {
-                personClickListener.onPersonClick(personId = person.id)
+                personClickListener.onPersonClick(personId = person.id, personName = person.name)
             }
         }
     }
