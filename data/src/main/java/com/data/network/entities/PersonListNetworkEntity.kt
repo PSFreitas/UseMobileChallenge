@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
  * A class that holds the person list when fetch from API
  * */
 data class PersonListNetworkEntity(
-    @SerializedName("response") val personList: List<PersonItemListNetworkEntity>
+    @SerializedName("result") val personList: List<PersonItemListNetworkEntity>
 )
