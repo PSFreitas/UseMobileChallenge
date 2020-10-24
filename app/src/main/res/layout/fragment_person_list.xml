@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.usemobile.ui.personlist.PersonListViewModel" />
+
+        <import type="com.usemobile.valuableobject.Status" />
+
+        <import type="android.view.View" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,8 +22,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_person_list"
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.Toolbar"
             android:layout_height="?attr/actionBarSize"
+            android:theme="@style/AppTheme.Toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title="Lista de Pessoas" />
@@ -26,14 +37,28 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar_person_list"
             app:queryHint="Pesquisar" />
 
+        <ProgressBar
+            android:id="@+id/progressBar_person_list"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.personList.status == Status.LOADING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchView_person_list" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_person_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
+            android:visibility="@{viewModel.personList.status == Status.LOADING ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchView_person_list" />
+            app:layout_constraintTop_toBottomOf="@id/progressBar_person_list"
+            tools:listitem="@layout/item_person" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
