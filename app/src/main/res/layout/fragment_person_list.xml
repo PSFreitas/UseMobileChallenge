@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F3F3F3">
+        android:background="#B9D6D6D6">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_person_list"
@@ -32,6 +32,7 @@
             android:id="@+id/searchView_person_list"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_person_list"
@@ -43,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
+            android:background="@android:color/white"
             android:visibility="@{viewModel.personList.status == Status.LOADING ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
