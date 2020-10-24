@@ -13,7 +13,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.usemobile.R
 import com.usemobile.databinding.FragmentPersonDetailBinding
 import com.usemobile.valuableobject.Status
-import kotlinx.android.synthetic.main.fragment_person_detail.*
 
 class PersonDetailFragment : Fragment() {
 
@@ -43,7 +42,6 @@ class PersonDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar()
         fetchUserDetails()
         setupObservables()
     }
@@ -71,10 +69,5 @@ class PersonDetailFragment : Fragment() {
         )
     }
 
-    private fun setupToolbar() {
-        if (arguments != null)
-            toolbar_person_detail.title = arguments?.getString("toolbarDetailTitle")
-
-    }
 
 }
