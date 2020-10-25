@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/personListFragment"
         android:name="com.usemobile.ui.personlist.PersonListFragment"
-        android:label="PersonListFragment"
+        android:label="@string/title_persons_list"
         tools:layout="@layout/fragment_person_list">
         <action
             android:id="@+id/action_personListFragment_to_personDetailFragment"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/personDetailFragment"
         android:name="com.usemobile.ui.persondetail.PersonDetailFragment"
-        android:label="PersonDetailFragment"
+        android:label="{toolbarDetailTitle}"
         tools:layout="@layout/fragment_person_detail">
 
         <argument

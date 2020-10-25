@@ -19,15 +19,6 @@
         android:layout_height="match_parent"
         android:background="#B9D6D6D6">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_person_list"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/AppTheme.Toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/title_persons_list" />
-
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView_person_list"
             android:layout_width="match_parent"
@@ -36,7 +27,7 @@
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_person_list"
+            app:layout_constraintTop_toTopOf="parent"
             app:queryHint="@string/search_hint" />
 
         <ProgressBar
