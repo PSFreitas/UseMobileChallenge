@@ -1,8 +1,12 @@
 package com.data.network.repository
 
 import com.data.ResultData
+import com.data.network.ErrorNetwork
 import com.data.network.api.PersonService
+import com.data.network.entities.PersonDetailNetworkEntity
 import com.data.network.entities.PersonListNetworkEntity
+import com.google.gson.Gson
+
 
 class PersonRepositoryImpl(
     private val personService: PersonService
@@ -25,5 +29,29 @@ class PersonRepositoryImpl(
             return ResultData.Error(exception = exception)
         }
 
+    }
+
+    suspend fun getPersonDetail(
+        userId: Int
+    ): ResultData<PersonDetailNetworkEntity> {
+        try {
+            val response = personService.getUserDetail(userId)
+            return if (response.isSuccessful) {
+                if (response.body() != null) {
+                    val personDetail = response.body() as PersonDetailNetworkEntity
+                    ResultData.Success(personDetail)
+                } else {
+                    ResultData.Error(exception = Exception())
+                }
+            } else {
+                val errorNetwork: ErrorNetwork = Gson().fromJson(
+                    response.errorBody()?.string(),
+                    ErrorNetwork::class.java
+                )
+                ResultData.Error(exception = Exception(errorNetwork.error))
+            }
+        } catch (exception: Exception) {
+            return ResultData.Error(exception = exception)
+        }
     }
 }

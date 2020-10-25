@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,11 +53,15 @@ class PersonListFragment : Fragment() {
         it.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fetchPersonsFromApi()
+        setupObservables()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObservables()
-        fetchPersonsFromApi()
+
         setupAdapter()
         setupRecyclerView()
         setupSearchView()
@@ -63,12 +69,11 @@ class PersonListFragment : Fragment() {
 
     private fun setupAdapter() {
         adapter.onPersonClickListener = object : OnPersonClickListener {
-            override fun onPersonClick(personId: Int) {
-                Snackbar.make(
-                    requireView(),
-                    "Item clicked $personId",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+            override fun onPersonClick(personId: Int, personName: String) {
+                val bundle = bundleOf("toolbarDetailTitle" to personName, "personId" to personId)
+                findNavController().navigate(
+                    R.id.action_personListFragment_to_personDetailFragment, bundle
+                )
             }
         }
     }
@@ -117,14 +122,14 @@ class PersonListFragment : Fragment() {
 
     private fun setupObservables() {
         viewModel.personList.observe(
-            viewLifecycleOwner, Observer {
+            this, Observer {
                 if (it.status == Status.SUCCESS) {
                     if (it.data != null)
                         adapter.addElements(it.data.personList)
-                }else if(it.status == Status.ERROR){
+                } else if (it.status == Status.ERROR) {
                     Snackbar.make(
                         requireView(),
-                        R.string.api_fetch_fail,
+                        R.string.api_fetch_list_fail,
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }

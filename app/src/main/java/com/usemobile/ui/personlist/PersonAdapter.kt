@@ -10,7 +10,7 @@ import com.usemobile.R
 import com.usemobile.databinding.ItemPersonBindingImpl
 
 class PersonAdapter(
-    val persons: MutableList<PersonItemListNetworkEntity>
+    var persons: MutableList<PersonItemListNetworkEntity>
 ) : RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
 
     private val cleanListState = mutableListOf<PersonItemListNetworkEntity>()
@@ -45,7 +45,7 @@ class PersonAdapter(
         override fun performFiltering(charSequence: CharSequence?): FilterResults {
             val nameToBeSearched: String = charSequence.toString()
             if (nameToBeSearched.isEmpty()) {
-                persons.addAll(cleanListState)
+                persons = cleanListState
             } else {
                 persons.clear()
                 for (person in cleanListState) {
@@ -76,7 +76,7 @@ class PersonAdapter(
         ) {
             binding.person = person
             binding.root.setOnClickListener {
-                personClickListener.onPersonClick(personId = person.id)
+                personClickListener.onPersonClick(personId = person.id, personName = person.name)
             }
         }
     }

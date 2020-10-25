@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.usemobile.ui.persondetail.PersonDetailViewModel" />
+
+        <import type="com.usemobile.valuableobject.Status" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar_person_detail"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            progressBarVisibleUnless="@{viewModel.personDetail.status}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:indeterminate="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView_person_photo_detail"
+            goneUnless="@{viewModel.personDetail.status}"
+            loadImage="@{viewModel.personDetail.data.photo}"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
+            android:layout_marginTop="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressBar_person_detail"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView_person_name_detail"
+            goneUnless="@{viewModel.personDetail.status}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14sp"
+            android:fontFamily="@font/roboto"
+            android:text="@{viewModel.personDetail.data.name}"
+            android:textColor="@android:color/black"
+            android:textSize="29sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView_person_photo_detail"
+            tools:text="Rafael Braga Araujo" />
+
+        <TextView
+            android:id="@+id/textView_person_email_detail"
+            goneUnless="@{viewModel.personDetail.status}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/roboto"
+            android:text="@{viewModel.personDetail.data.email}"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/textView_person_name_detail"
+            app:layout_constraintStart_toStartOf="@id/textView_person_name_detail"
+            app:layout_constraintTop_toBottomOf="@id/textView_person_name_detail"
+            tools:text="rafeal@gmail.com" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_content_person_about"
+            goneUnless="@{viewModel.personDetail.status}"
+            android:layout_width="328dp"
+            android:layout_height="127dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rect_border"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_person_email_detail">
+
+            <TextView
+                android:id="@+id/textView_person_about_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto"
+                android:text="@{viewModel.personDetail.data.about}"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/lorem_person_about" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
