@@ -50,12 +50,10 @@ class PersonDetailFragment : Fragment() {
         viewModel.personDetail.observe(
             viewLifecycleOwner,
             Observer {
-                if (it.status == Status.SUCCESS) {
-
-                } else if (it.status == Status.ERROR) {
+                if (it.status == Status.ERROR) {
                     Snackbar.make(
                         requireView(),
-                        it.exception?.message ?: "",
+                        it.exception?.message ?: getString(R.string.api_fetch_person_detail_fail),
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }

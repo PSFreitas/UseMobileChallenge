@@ -129,7 +129,7 @@ class PersonListFragment : Fragment() {
                 } else if (it.status == Status.ERROR) {
                     Snackbar.make(
                         requireView(),
-                        R.string.api_fetch_fail,
+                        R.string.api_fetch_list_fail,
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
