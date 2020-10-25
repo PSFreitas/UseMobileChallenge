@@ -53,11 +53,15 @@ class PersonListFragment : Fragment() {
         it.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fetchPersonsFromApi()
+        setupObservables()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObservables()
-        fetchPersonsFromApi()
+
         setupAdapter()
         setupRecyclerView()
         setupSearchView()
@@ -118,7 +122,7 @@ class PersonListFragment : Fragment() {
 
     private fun setupObservables() {
         viewModel.personList.observe(
-            viewLifecycleOwner, Observer {
+            this, Observer {
                 if (it.status == Status.SUCCESS) {
                     if (it.data != null)
                         adapter.addElements(it.data.personList)
